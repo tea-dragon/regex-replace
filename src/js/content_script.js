@@ -51,7 +51,10 @@ chrome.storage.sync.get('regexStatus', function (data) {
 // Reusable generic function
 function surroundInElement(el, regex, replaceString, surrounderCreateFunc) {
   // script and style elements are left alone
-  if (!/^(script|style|A)$/.test(el.tagName)) {
+  var notregex = /^(script|style|A)$/.test(el.tagName);
+  //var hasclass = _.any(el.classList, function (el) { return el.startsWith("cm-"); });
+  //if (!(notregex || hasclass)) {
+  if (!notregex) {
     el.setAttribute("regexed", "scanned");
     var child = el.lastChild;
     while (child) {
@@ -132,7 +135,9 @@ function replaceLink(match, package, clazz, method, line, offset, string) {
   package = package.replace(/</g, "&lt;").replace(/>/g, "&gt;");
   var p1b = package.split('.').join("/");
   var linkText = clazz;
-  if (line) { linkText += line; }
+  if (line) {
+    linkText += line;
+  }
   return "/?message=" + p1b + linkText;
 }
 
