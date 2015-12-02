@@ -50,8 +50,13 @@ chrome.storage.sync.get('regexStatus', function (data) {
 
 // Reusable generic function
 function surroundInElement(el, regex, replaceString, surrounderCreateFunc) {
-  // script and style elements are left alone
-  if (!/^(script|style|A)$/.test(el.tagName)) {
+  // script, style, and link elements are left alone
+  var script_style_link  = /^(script|style|A)$/.test(el.tagName);
+  // as are things that look like they belong to codemirror -- cause
+  // there is some quirk involved there I don't want to bother with and
+  // it might not be desirable anyway; ps. classList sucks
+  var looks_codemirrory  = /\bcm-/.test(el.className);
+  if (!(script_style_link || looks_codemirrory)) {
     el.setAttribute("regexed", "scanned");
     var child = el.lastChild;
     while (child) {
@@ -132,7 +137,9 @@ function replaceLink(match, package, clazz, method, line, offset, string) {
   package = package.replace(/</g, "&lt;").replace(/>/g, "&gt;");
   var p1b = package.split('.').join("/");
   var linkText = clazz;
-  if (line) { linkText += line; }
+  if (line) {
+    linkText += line;
+  }
   return "/?message=" + p1b + linkText;
 }
 
