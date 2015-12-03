@@ -95,6 +95,10 @@ function splitAndLink(matchedTextNode, regex, replaceString) {
   el.href = linkAddress;
   //el.style.color = "#b58900";
   el.setAttribute("regexed", "replacement link");
+  //open in a new tab
+  el.setAttribute("target", "_blank");
+  //try to always actually function as a link (bad edge cases?)
+  el.style.pointerEvents = "auto";
   el.appendChild(matchedTextNode);
   return el;
 }
