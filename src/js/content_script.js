@@ -133,9 +133,9 @@ function startObserver(node, ruleSet) {
 }
 
 // for future use
-function replaceLink(match, package, clazz, method, line, offset, string) {
-  package = package.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  var p1b = package.split('.').join("/");
+function replaceLink(match, packages, clazz, method, line, offset, string) {
+  packages = packages.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  var p1b = packages.split('.').join("/");
   var linkText = clazz;
   if (line) {
     linkText += line;
