@@ -51,7 +51,7 @@ chrome.storage.sync.get('regexStatus', function (data) {
 // Reusable generic function
 function surroundInElement(el, regex, replaceString, surrounderCreateFunc) {
   // script, style, and link elements are left alone
-  var script_style_link  = /^(script|style|A)$/.test(el.tagName);
+  var script_style_link  = /^(script|style|a)$/i.test(el.tagName);
   // as are things that look like they belong to codemirror -- cause
   // there is some quirk involved there I don't want to bother with and
   // it might not be desirable anyway; ps. classList sucks
